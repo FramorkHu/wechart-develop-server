@@ -2,3 +2,7 @@
 wechart-chatting-robot/wechart-chatting-robot.iml
 wechart-core/wechart-core.iml
 wechart-develop-server.iml
+logs/
+wechart-chatting-robot/target/
+wechart-core/target/
+target/
