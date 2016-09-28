@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <classPathEntry
+            location="D:\Maven\reposity\mysql\mysql-connector-java\5.1.38\mysql-connector-java-5.1.38.jar"/>
+
+
+
+    <context id="datacenter" targetRuntime="MyBatis3">
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/wechart?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf8"
+                        userId="root"
+                        password="123456">
+        </jdbcConnection>
+
+        <!-- 对象映射 -->
+        <javaModelGenerator targetPackage="com.wechart.bean.po"
+                            targetProject="E:\StudyBench\wechart-develop-server\wechart-core\src\main\java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!-- mapper xml文件生成-->
+        <sqlMapGenerator targetPackage="mybatis.dataMapperXml"
+                         targetProject="E:\StudyBench\wechart-develop-server\wechart-core\src\main\resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!-- mapper接口生成-->
+        <javaClientGenerator type="MIXEDMAPPER"
+                             targetPackage="com.wechart.core.mapper"
+                             targetProject="E:\StudyBench\wechart-develop-server\wechart-core\src\main\java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+
+        <!-- 添加需要生表 -->
+
+        <table tableName="chatting_robot_knowledge" >
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+
+    </context>
+</generatorConfiguration>
