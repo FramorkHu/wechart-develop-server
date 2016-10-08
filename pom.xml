@@ -11,6 +11,8 @@
     <modules>
         <module>wechart-chatting-robot</module>
         <module>wechart-core</module>
+        <module>wechart-web</module>
+        <module>wechart-service</module>
     </modules>
 
     <properties>

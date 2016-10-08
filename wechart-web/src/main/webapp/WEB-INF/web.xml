@@ -1,0 +1,24 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+
+    <servlet>
+        <servlet-name>coreServlet</servlet-name>
+        <servlet-class>com.wechart.servlet.CoreServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>coreServlet</servlet-name>
+        <url-pattern>/coreServlet</url-pattern>
+    </servlet-mapping>
+
+    <!-- 配置欢迎
+     当你只指定一个web的根名，没有指定具体页面，去访问时一个web时，
+     如果web.xml文件中配置了欢迎页，那么就返回指定的那个页面作为欢迎页-->
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+</web-app>

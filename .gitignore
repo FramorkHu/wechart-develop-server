@@ -6,3 +6,5 @@ logs/
 wechart-chatting-robot/target/
 wechart-core/target/
 target/
+wechart-service/wechart-service.iml
+wechart-web/wechart-web.iml
