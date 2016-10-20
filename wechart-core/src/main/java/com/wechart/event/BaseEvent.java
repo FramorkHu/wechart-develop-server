@@ -5,26 +5,27 @@ package com.wechart.event;
  */
 public class BaseEvent {
 
-    private String toUserName;
-    private String fromUserName;
+    private String ToUserName;
+    private String FromUserName;
     private long CreateTime;
     private String MsgType;
-    private String event;
+    private String Event;
+
 
     public String getToUserName() {
-        return toUserName;
+        return ToUserName;
     }
 
     public void setToUserName(String toUserName) {
-        this.toUserName = toUserName;
+        ToUserName = toUserName;
     }
 
     public String getFromUserName() {
-        return fromUserName;
+        return FromUserName;
     }
 
     public void setFromUserName(String fromUserName) {
-        this.fromUserName = fromUserName;
+        FromUserName = fromUserName;
     }
 
     public long getCreateTime() {
@@ -44,10 +45,10 @@ public class BaseEvent {
     }
 
     public String getEvent() {
-        return event;
+        return Event;
     }
 
     public void setEvent(String event) {
-        this.event = event;
+        Event = event;
     }
 }

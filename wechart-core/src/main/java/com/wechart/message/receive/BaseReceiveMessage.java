@@ -5,26 +5,26 @@ package com.wechart.message.receive;
  */
 public class BaseReceiveMessage {
 
-    private String toUserName;
-    private String fromUserName;
+    private String ToUserName;
+    private String FromUserName;
     private long CreateTime;
     private String MsgType;
     private long MsgId;
 
     public String getToUserName() {
-        return toUserName;
+        return ToUserName;
     }
 
     public void setToUserName(String toUserName) {
-        this.toUserName = toUserName;
+        ToUserName = toUserName;
     }
 
     public String getFromUserName() {
-        return fromUserName;
+        return FromUserName;
     }
 
     public void setFromUserName(String fromUserName) {
-        this.fromUserName = fromUserName;
+        FromUserName = fromUserName;
     }
 
     public long getCreateTime() {

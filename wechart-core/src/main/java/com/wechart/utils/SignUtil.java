@@ -20,6 +20,7 @@ public class SignUtil {
      * @return
      */
     public static boolean checkSignature(String signature, String timestamp, String nonce) {
+
         // 对token、timestamp和nonce按字典排序
         String[] paramArr = new String[] { token, timestamp, nonce };
         Arrays.sort(paramArr);
@@ -38,7 +39,7 @@ public class SignUtil {
         }
 
         // 将sha1加密后的字符串与signature进行对比
-        return ciphertext != null ? ciphertext.equals(signature.toUpperCase()) : false;
+        return signature.toUpperCase().equals(ciphertext);
     }
 
     /**

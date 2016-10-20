@@ -1,5 +1,6 @@
 package com.wechart.servlet;
 
+import com.wechart.service.RequestMessageProcessor;
 import com.wechart.utils.SignUtil;
 
 import javax.servlet.ServletException;
@@ -24,7 +25,26 @@ public class CoreServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+
+        String signature = req.getParameter("signature");
+        String timestamp = req.getParameter("timestamp");
+        String nonce = req.getParameter("nonce");
+
+        PrintWriter out = resp.getWriter();
+
+        if (SignUtil.checkSignature(signature,timestamp, nonce)){
+
+            // 调用核心服务类接收处理请求
+            String respXml = new RequestMessageProcessor().processRequest(req);
+            if (respXml == null){
+                respXml ="";
+            }
+            out.print(respXml);
+        }
+
     }
 
     @Override
@@ -43,7 +63,5 @@ public class CoreServlet extends HttpServlet {
         if (SignUtil.checkSignature(signature, timestamp, nonce)) {
             out.print(echostr);
         }
-        out.close();
-        out = null;
     }
 }

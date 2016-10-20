@@ -7,6 +7,7 @@ import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.util.Random;
@@ -16,6 +17,8 @@ import java.util.Random;
  */
 public class ChatRobotUtil {
 
+    private static final Logger LOGGER = Logger.getLogger(ChatRobotUtil.class);
+
     private final static String APP_KEY = "CfrA3bYSzJvY";
     private final static String APP_SECRET = "hjfw0GFNqPnBR1PU0KXW";
 
@@ -23,6 +26,10 @@ public class ChatRobotUtil {
     private final static String METHOD = "POST";
     private final static String URL = "/robot/ask.do";
     private final static String PATH = "http://nlp.xiaoi.com/robot/ask.do";
+
+    public static void main(String args[]){
+        System.out.println(new ChatRobotUtil().chatting("你哈", "aaa"));
+    }
 
     public String chatting(String question, String userId){
         return processChatting(question, userId);
@@ -42,7 +49,7 @@ public class ChatRobotUtil {
         String sign = DigestUtils.shaHex(StringUtils.join(new String[] { HA1,
                 nonce, HA2 }, ":"));
 
-        String str = "稍后再试吧~";
+        String str = "稍后再聊吧~";
 
         HttpClient hc = new HttpClient();
         PostMethod pm = new PostMethod(PATH);
@@ -59,13 +66,12 @@ public class ChatRobotUtil {
             if (re_code == 200) {
                 str = pm.getResponseBodyAsString();
             }
-        } catch (HttpException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+
+            LOGGER.error("ChatRobotUtil is error,", e);
+            str = "稍后再聊吧~";
         }
+        str = str.trim();
         return str;
     }
 }

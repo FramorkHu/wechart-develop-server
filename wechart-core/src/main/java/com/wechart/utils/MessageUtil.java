@@ -5,10 +5,9 @@ import com.thoughtworks.xstream.core.util.QuickWriter;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.XppDriver;
-import com.wechart.message.receive.ImageReceiveMessage;
-import com.wechart.message.receive.TextReceiveMessage;
-import com.wechart.message.receive.VideoReceiveMessage;
-import com.wechart.message.receive.VoiceReceiveMessage;
+import com.wechart.message.send.Article;
+import com.wechart.message.send.BaseSendMessage;
+import com.wechart.message.send.NewsSendMessage;
 import com.wechart.message.send.TextSendMessage;
 import org.dom4j.Document;
 import org.dom4j.Element;
@@ -24,6 +23,10 @@ import java.util.Map;
  * Created by huyan on 2016/10/8.
  */
 public class MessageUtil {
+
+    public static final String MSG_FROM_USER_NAME = "FromUserName";
+    public static final String MSG_TO_USER_NAME = "ToUserName";
+    public static final String MSG_TYPE = "MsgType";
 
     // 请求消息类型：文本
     public static final String REQ_MESSAGE_TYPE_TEXT = "text";
@@ -90,8 +93,9 @@ public class MessageUtil {
             map.put(e.getName(), e.getText());
 
         // 释放资源
-        inputStream.close();
-        inputStream = null;
+        if (inputStream != null){
+            inputStream.close();
+        }
 
         return map;
     }
@@ -123,6 +127,17 @@ public class MessageUtil {
         }
     });
 
+    public static String messageToXml(BaseSendMessage sendMessage){
+
+        if (sendMessage instanceof TextSendMessage){
+            return messageToXml((TextSendMessage)sendMessage);
+        } else if (sendMessage instanceof NewsSendMessage){
+            return messageToXml((NewsSendMessage) sendMessage);
+        }
+
+        return null;
+    }
+
     /**
      * 文本消息对象转换成xml
      *
@@ -135,36 +150,14 @@ public class MessageUtil {
     }
 
     /**
-     * 图片消息对象转换成xml
+     * 图文消息对象转换成xml
      *
-     * @param imageMessage 图片消息对象
+     * @param newsMessage 图文消息对象
      * @return xml
      */
-    public static String messageToXml(ImageReceiveMessage imageMessage) {
-        xstream.alias("xml", imageMessage.getClass());
-        return xstream.toXML(imageMessage);
+    public static String messageToXml(NewsSendMessage newsMessage) {
+        xstream.alias("xml", newsMessage.getClass());
+        xstream.alias("item", Article.class);
+        return xstream.toXML(newsMessage);
     }
-
-    /**
-     * 语音消息对象转换成xml
-     *
-     * @param voiceMessage 语音消息对象
-     * @return xml
-     */
-    public static String messageToXml(VoiceReceiveMessage voiceMessage) {
-        xstream.alias("xml", voiceMessage.getClass());
-        return xstream.toXML(voiceMessage);
-    }
-
-    /**
-     * 视频消息对象转换成xml
-     *
-     * @param videoMessage 视频消息对象
-     * @return xml
-     */
-    public static String messageToXml(VideoReceiveMessage videoMessage) {
-        xstream.alias("xml", videoMessage.getClass());
-        return xstream.toXML(videoMessage);
-    }
-
 }
